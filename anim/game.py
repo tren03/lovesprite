@@ -42,7 +42,7 @@ frame3 = sprite_sheet.get_image(3, 24, 24, 5, BLACK)
 # animaion list - holds all frames to loop through
 animation_list = []
 
-# number of frames to loop through - [idle, run, jump, hurt, duck]
+# number of frames to loop through - [idle, run, kick, hurt, duck]
 animation_total_frames = 12
 animation_steps = [3, 7, 3, 4, 7]
 
@@ -57,7 +57,7 @@ frame = 0
 # Nos of frames
 # 3 idle
 # 7 run
-# 2 jump
+# 2 kick
 temp_img_list = []
 for x in range(24):
     if x < 3:
@@ -105,7 +105,7 @@ while run:
     # screen.blit(sprite_img, (0, 0))
 
     # update animation  testing
-    action = 0
+    action =2 
     current = pygame.time.get_ticks()
     if current - last_update >= animation_cooldown:
         frame = (frame + 1) % animation_steps[action]
