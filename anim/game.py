@@ -42,19 +42,60 @@ frame3 = sprite_sheet.get_image(3, 24, 24, 5, BLACK)
 # animaion list - holds all frames to loop through
 animation_list = []
 
-# number of frames to loop through
-animation = 4
+# number of frames to loop through - [idle, run, jump, hurt, duck]
+animation_total_frames = 12
+animation_steps = [3, 7, 3, 4, 7]
+
+# tells what action is dino doing
+action = 0
 
 # timer to change each frame
 last_update = pygame.time.get_ticks()
-animation_cooldown = 500  # in ms
-
+animation_cooldown = 100  # in ms
 frame = 0
 
+# Nos of frames
+# 3 idle
+# 7 run
+# 2 jump
+temp_img_list = []
+for x in range(24):
+    if x < 3:
+        temp_img_list.append(sprite_sheet.get_image(x, 24, 24, 5, BLACK))
 
-# append all frames to animation list
-for x in range(animation):
-    animation_list.append(sprite_sheet.get_image(x, 24, 24, 5, BLACK))
+    if x >= 3 and x < 10:
+        if x == 3:
+            animation_list.append(temp_img_list)
+            temp_img_list = []
+        temp_img_list.append(sprite_sheet.get_image(x, 24, 24, 5, BLACK))
+
+    if x >= 10 and x < 13:
+        if x == 10:
+            animation_list.append(temp_img_list)
+            temp_img_list = []
+        temp_img_list.append(sprite_sheet.get_image(x, 24, 24, 5, BLACK))
+
+    if x >= 13 and x < 17:
+        if x == 13:
+            animation_list.append(temp_img_list)
+            temp_img_list = []
+        temp_img_list.append(sprite_sheet.get_image(x, 24, 24, 5, BLACK))
+
+    if x >= 17 and x < 24:
+        if x == 17:
+            animation_list.append(temp_img_list)
+            temp_img_list = []
+        temp_img_list.append(sprite_sheet.get_image(x, 24, 24, 5, BLACK))
+
+# for animation in animation_steps:
+#     temp_img_list = []
+#     for x in range(animation):
+#         temp_img_list.append(sprite_sheet.get_image(x, 24, 24, 5, BLACK))
+#
+#     animation_list.append(temp_img_list)
+
+animation_list.append(temp_img_list)
+
 
 while run:
 
@@ -63,13 +104,15 @@ while run:
     # # to display sprite sheet
     # screen.blit(sprite_img, (0, 0))
 
-    # update animation
+    # update animation  testing
+    action = 0
     current = pygame.time.get_ticks()
     if current - last_update >= animation_cooldown:
-        frame = (frame + 1) % animation
+        frame = (frame + 1) % animation_steps[action]
         last_update = current
 
-    screen.blit(animation_list[frame], (0, 0))
+    # to test the running animation
+    screen.blit(animation_list[action][frame], (0, 0))
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
